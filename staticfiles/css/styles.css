@@ -1,0 +1,32 @@
+.navbar {
+    background-color: #0073e6; 
+    margin-bottom: 0;
+    border-radius: 0;
+    border: none;
+}
+
+.navbar .navbar-brand, 
+.navbar .nav > li > a {
+    color: white !important; 
+}
+
+.navbar .nav > li > a:hover {
+    background-color: #005bb5; 
+}
+
+
+.footer-distributed {
+    background-color: #005bb5; 
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer-distributed a {
+    color: #ffcc00; 
+    text-decoration: none;
+}
+
+.footer-distributed a:hover {
+    text-decoration: underline;
+}

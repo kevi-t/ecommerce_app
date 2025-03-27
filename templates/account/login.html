@@ -1,0 +1,52 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>E-Commerce</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/8fd23289ed.js" crossorigin="anonymous"></script>
+    <link rel="icon" type="image/x-icon" href="{% static 'favicon.ico' %}">
+    <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+</head>
+<body>
+    {% include 'navbar.html' %}  
+
+    <div class="container">
+        <h2 class="text-center">Login</h2>
+        <p class="text-center">Access your account to continue shopping.</p>
+    
+        <div class="row">
+            <div class="col-md-12">
+                <form method="POST">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+    
+                    <button type="submit" class="btn btn-primary btn-block">Login</button>
+                </form>
+    
+                <div class="text-center my-4">
+                    <span class="text-muted">OR</span>
+                </div>
+    
+                <div class="text-center">
+                    <a class="btn btn-danger btn-block" href="">
+                        <i class="fa-brands fa-google"></i> Sign in with Google
+                    </a>
+    
+                    <a class="btn btn-dark btn-block" href="">
+                        <i class="fa-brands fa-github"></i> Sign in with GitHub
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>    
+    
+    {% include 'footer.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</body>
+</html>
