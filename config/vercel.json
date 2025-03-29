@@ -1,4 +1,6 @@
 {
+   "version": 2,
+
     "builds": [
       {
         "src": "manage.py",
@@ -11,5 +13,13 @@
         "dest": "manage.py"
       }
     ],
-    "buildCommand": "pip install -r requirements.txt"
+
+    "env": {
+      
+       "DJANGO_SECRET_KEY": "@django_secret_key",
+       "DATABASE_URL": "@database_url",
+       "ALLOWED_HOSTS": "@allowed_hosts",
+       "DEBUG": "False"
+    }
+   
   }
