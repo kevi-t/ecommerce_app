@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import home,login
+from .views import index,home,products,orders
 
 urlpatterns = [
-    path('', home, name='home'),  # Home page
-    path('account/login/', login, name='login')
+    path('', index, name='index'),  
+    path("home/", home, name="home"),
+    path("products/", products, name="products"),
+    path("orders/", orders, name="orders"),
 ]

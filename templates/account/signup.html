@@ -1,13 +1,11 @@
 {% extends "includes/base.html" %}
 {% load socialaccount %}
 
-{% block title %}Login - E-Commerce{% endblock %}
+{% block title %}Register - E-Commerce{% endblock %}
 
 {% block content %}
-    <h2 class="text-center">Login</h2>
-    <p class="text-center">
-        Created an account to access products <a href="{% url 'account_signup' %}">Register</a>
-    </p>
+    <h2 class="text-center">Register</h2>
+    <p class="text-center">Already have an account? <a href="{% url 'account_login' %}">Sign in</a></p>
 
     <div class="row">
         <div class="col-md-12">
@@ -15,7 +13,7 @@
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="hidden" name="next" value="{% url 'home' %}">
-                <button type="submit" class="btn btn-primary btn-block">Login</button>
+                <button type="submit" class="btn btn-primary btn-block">Register</button>
             </form>
 
             <div class="text-center my-4">

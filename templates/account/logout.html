@@ -1,0 +1,10 @@
+{% extends "includes/root.html" %}
+
+{% block content %}
+        <h2>Logout</h2>
+        <p>Are you sure you want to sign out?</p>
+        <form method="post" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Sign Out</button>
+        </form>
+{% endblock %}
