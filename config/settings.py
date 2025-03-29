@@ -15,7 +15,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env.bool("DJANGO_DEBUG", default=False)
 # DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*',os.getenv("VERCEL_URL", "https://ecommerce-app-eight-rouge.vercel.app/")]
 
 
 # Application definition
@@ -163,8 +163,8 @@ USE_TZ = True
 
 STATIC_URL = 'static/'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
-STATIC_ROOT = BASE_DIR / "staticfiles" 
-
+# STATIC_ROOT = BASE_DIR / "staticfiles" 
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Media files (for user-uploaded content)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / "media"
