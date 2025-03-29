@@ -22,8 +22,12 @@
                 <span class="glyphicon glyphicon-user"></span> {{ user.username }} <span class="caret"></span>
               </a>
               <ul class="dropdown-menu">
-                {% comment %} <li><a href="{% url 'account_settings' %}"><span class="glyphicon glyphicon-cog"></span> Edit Profile</a></li> {% endcomment %}
-                {% comment %} <li class="divider"></li> {% endcomment %}
+                <li><a href="{% url 'profile' %}"><span class="glyphicon glyphicon-user"></span> My Profile</a></li>
+                <li class="divider"></li>
+                <li><a href="{% url 'profile_edit' %}"><span class="glyphicon glyphicon-edit"></span> Edit Profile</a></li>
+                <li class="divider"></li>
+                {% comment %} <li><a href="{% url 'profile_settings' %}"><span class="glyphicon glyphicon-cog"></span> Settings</a></li> {% endcomment %}
+                <li class="divider"></li>
                 <li><a href="{% url 'account_logout' %}"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
               </ul>
             </li>

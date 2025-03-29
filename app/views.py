@@ -23,7 +23,14 @@ def products(request):
 def orders(request):
     return render(request, 'orders.html')
 
+@login_required
+def profile(request):
+    return render(request, 'profiles/profile.html')
 
-# @login_required
-# def profile(request):
-#     return render(request, 'profile.html')
+@login_required
+def profile_edit(request):
+    return render(request, 'profiles/profile_edit.html')
+
+@login_required
+def profile_settings(request):
+    return render(request, 'profiles/profile_settings.html')
