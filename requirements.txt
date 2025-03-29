@@ -6,7 +6,7 @@ colorama==0.4.6
 coverage==7.7.1
 cryptography==44.0.2
 dj-database-url==2.3.0
-Django>=5.0,<6.0
+Django==5.1.1
 django-allauth==65.5.0
 django-cleanup==9.0.0
 django-environ==0.12.0
