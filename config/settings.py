@@ -15,7 +15,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
 # DEBUG = False
 
-ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app']
+ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app','ecommerce-raaszwv1v-kevi-ts-projects.vercel.app']
 
 
 # Application definition
