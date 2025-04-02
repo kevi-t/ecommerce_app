@@ -15,7 +15,7 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
 # DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', '*']
+ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app']
 
 
 # Application definition
@@ -113,25 +113,20 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-} 
-
-DATABASES['default'] = dj_database_url.config()
-
 # DATABASES = {
-#     'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
-# }
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# } 
 
+# DATABASES['default'] = dj_database_url.config()
 
-
+DATABASES = {
+    'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+}
 
 # Password validation
-# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
-
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -149,8 +144,6 @@ AUTH_PASSWORD_VALIDATORS = [
 
 
 # Internationalization
-# https://docs.djangoproject.com/en/5.1/topics/i18n/
-
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -161,12 +154,14 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-
 STATIC_URL = '/static/'
 STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
-STATICFILES_DIRS = [ BASE_DIR / 'static' ]
+STATICFILES_DIRS = [ BASE_DIR / 'ecommerce_app' / 'static' ]
+
+# STATICFILES_DIRS = [ BASE_DIR / 'static' ]
 # STATIC_ROOT = BASE_DIR / "staticfiles" 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
 # Media files (for user-uploaded content)
 MEDIA_URL = 'media/'
 MEDIA_ROOT = BASE_DIR / "media"
