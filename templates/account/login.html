@@ -37,13 +37,13 @@
     <script>
         document.getElementById("loginForm").onsubmit = function(event) {
             event.preventDefault(); // Prevent form submission
-    
+
             let email = document.getElementsByName("login")[0].value;
             let password = document.getElementsByName("password")[0].value;
             let nextUrl = document.getElementsByName("next")[0].value; // This is for redirecting after successful login
-    
+
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-    
+
             fetch("{% url 'account_login' %}", {  // Update this URL to the name of your login URL
                 method: "POST",
                 headers: {
@@ -57,8 +57,13 @@
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    window.location.href = nextUrl || '/';  // Redirect to the "next" URL or default to homepage
+                if (data.access && data.refresh) {
+                    // Store the access and refresh tokens in localStorage
+                    localStorage.setItem('access_token', data.access);
+                    localStorage.setItem('refresh_token', data.refresh);
+
+                    // Redirect the user to the next URL or default to homepage
+                    window.location.href = nextUrl || '/';
                 } else {
                     alert("Invalid login credentials, please try again.");
                 }
@@ -69,6 +74,5 @@
             });
         }
     </script>
-    
 
 {% endblock %}
