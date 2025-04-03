@@ -6,15 +6,21 @@
 {% block content %}
     <h2 class="text-center">Login</h2>
     <p class="text-center">
-        Created an account to access products <a href="{% url 'account_signup' %}">Register</a>
+        Created an account to access products? <a href="{% url 'account_signup' %}">Register</a>
     </p>
 
     <div class="row">
         <div class="col-md-12">
-            <form id="loginForm" method="POST">
+            <form id="loginForm" method="POST" action="{% url 'login_view' %}">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <label for="email">Email</label>
+                <input type="email" name="email" class="form-control" required>
+
+                <label for="password">Password</label>
+                <input type="password" name="password" class="form-control" required>
+
                 <input type="hidden" name="next" value="{% url 'home' %}">
+
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
 
@@ -36,34 +42,29 @@
 
     <script>
         document.getElementById("loginForm").onsubmit = function(event) {
-            event.preventDefault(); // Prevent form submission
+            event.preventDefault(); // Prevent default form submission
 
-            let email = document.getElementsByName("login")[0].value;
-            let password = document.getElementsByName("password")[0].value;
-            let nextUrl = document.getElementsByName("next")[0].value; // This is for redirecting after successful login
-
+            let form = event.target;
+            let formData = new FormData(form);
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+            let nextUrl = document.getElementsByName("next")[0].value || "/";
 
-            fetch("{% url 'account_login' %}", {  // Update this URL to the name of your login URL
+            fetch("{% url 'login_view' %}", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json",
                     "X-CSRFToken": csrfToken
                 },
-                body: JSON.stringify({
-                    email: email,
-                    password: password
-                })
+                body: formData
             })
             .then(response => response.json())
             .then(data => {
                 if (data.access && data.refresh) {
-                    // Store the access and refresh tokens in localStorage
+                    // Store tokens
                     localStorage.setItem('access_token', data.access);
                     localStorage.setItem('refresh_token', data.refresh);
 
-                    // Redirect the user to the next URL or default to homepage
-                    window.location.href = nextUrl || '/';
+                    // Redirect
+                    window.location.href = nextUrl;
                 } else {
                     alert("Invalid login credentials, please try again.");
                 }

@@ -40,28 +40,28 @@ def register(request):
     return render(request, "account/register.html")
 
 # Login View
-def login(request):
-    if request.method == "POST":
-        data = {
-            "email": request.POST.get("email"),
-            "password": request.POST.get("password"),
-        }
+# def login(request):
+#     if request.method == "POST":
+#         data = {
+#             "email": request.POST.get("email"),
+#             "password": request.POST.get("password"),
+#         }
 
-        try:
-            response = requests.post(settings.ECOMMERCE_API_URL_LOGIN, data=data)
+#         try:
+#             response = requests.post(settings.ECOMMERCE_API_URL_LOGIN, data=data)
 
-            if response.status_code == 200:
-                # Store token in session or cookies
-                response_data = response.json()
-                request.session["access_token"] = response_data.get("access")
-                request.session["refresh_token"] = response_data.get("refresh")
-                return redirect("home")
-            else:
-                return JsonResponse({"error": "Login failed. Please try again."})
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({"error": f"An error occurred: {e}"})
+#             if response.status_code == 200:
+#                 # Store token in session or cookies
+#                 response_data = response.json()
+#                 request.session["access_token"] = response_data.get("access")
+#                 request.session["refresh_token"] = response_data.get("refresh")
+#                 return redirect("home")
+#             else:
+#                 return JsonResponse({"error": "Login failed. Please try again."})
+#         except requests.exceptions.RequestException as e:
+#             return JsonResponse({"error": f"An error occurred: {e}"})
 
-    return render(request, "account/login.html")
+#     return render(request, "account/login.html")
 
 # Update View
 # def update_customer(request):
@@ -137,12 +137,37 @@ def login(request):
 
 
 
+# ✅ Login View that calls the API
+def login_view(request):
+    if request.method == "POST":
+        data = {
+            "email": request.POST.get("email"),
+            "password": request.POST.get("password"),
+        }
 
+        try:
+            response = requests.post(settings.ECOMMERCE_API_URL_LOGIN, json=data)  # Ensure data is sent as JSON
 
+            if response.status_code == 200:
+                response_data = response.json()
+                request.session["access_token"] = response_data.get("access")
+                request.session["refresh_token"] = response_data.get("refresh")
+                return redirect("home")
+            else:
+                return JsonResponse({"error": "Login failed. Please try again."})
+        except requests.exceptions.RequestException as e:
+            return JsonResponse({"error": f"An error occurred: {e}"})
 
+    return redirect("login_page")  # Redirect to the login page if not a POST request
 
-def login(request):
+# ✅ Separate function just for rendering the login page
+def login_page(request):
     return render(request, 'account/login.html')
+
+
+
+# def login(request):
+#     return render(request, 'account/login.html')
 
 def register(request):
     return render(request, 'account/register.html')
