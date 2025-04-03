@@ -5,13 +5,30 @@
 
 {% block content %}
     <h2 class="text-center">Register</h2>
-    <p class="text-center">Already have an account? <a href="{% url 'account_login' %}">Sign in</a></p>
+    <p class="text-center">
+        Already have an account? <a href="{% url 'login' %}">Sign in</a>
+    </p>
 
     <div class="row">
         <div class="col-md-12">
-            <form method="POST">
+            <form id="registerForm" method="POST">
                 {% csrf_token %}
-                {{ form.as_p }}
+                <div class="form-group">
+                    <label for="name">Full Name</label>
+                    <input type="text" name="name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" name="email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="phone_number">Phone Number</label>
+                    <input type="tel" name="phone_number" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" name="password" class="form-control" required>
+                </div>
                 <input type="hidden" name="next" value="{% url 'home' %}">
                 <button type="submit" class="btn btn-primary btn-block">Register</button>
             </form>
@@ -31,4 +48,43 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("registerForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevent default form submission
+
+            let name = document.getElementsByName("name")[0].value;
+            let email = document.getElementsByName("email")[0].value;
+            let phone_number = document.getElementsByName("phone_number")[0].value;
+            let password = document.getElementsByName("password")[0].value;
+            let nextUrl = document.getElementsByName("next")[0].value; // Redirect after successful registration
+            let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
+            fetch("{% url 'register' %}", {  // Update this to your register URL
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    phone_number: phone_number,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = nextUrl || '{% url "login" %}';  // Redirect to login page
+                } else {
+                    alert("Registration failed, please try again.");
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("An error occurred while trying to register.");
+            });
+        };
+    </script>
 {% endblock %}

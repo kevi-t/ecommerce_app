@@ -33,4 +33,42 @@
             </div>
         </div>
     </div>
+
+    <script>
+        document.getElementById("loginForm").onsubmit = function(event) {
+            event.preventDefault(); // Prevent form submission
+    
+            let email = document.getElementsByName("email")[0].value;
+            let password = document.getElementsByName("password")[0].value;
+            let nextUrl = document.getElementsByName("next")[0].value; // This is for redirecting after successful login
+    
+            let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+    
+            fetch("{% url 'login' %}", {  // Update this URL to the name of your login URL
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfToken
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.href = nextUrl || '/';  // Redirect to the "next" URL or default to homepage
+                } else {
+                    alert("Invalid login credentials, please try again.");
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert("An error occurred while trying to log in.");
+            });
+        }
+    </script>
+    
+
 {% endblock %}

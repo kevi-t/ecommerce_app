@@ -113,17 +113,22 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'config.wsgi.application'
 
-
-# Database
+# Local Database
 DATABASES = {
-    'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'ecommerce_db',
+        'USER': 'postgres',
+        'PASSWORD': 'java',
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
 }
+
+# Production Database
 # DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.sqlite3',
-#         'NAME': BASE_DIR / 'db.sqlite3',
-#     }
-# } 
+#     'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+# }
 
 
 # Password validation
@@ -183,3 +188,10 @@ SOCIALACCOUNT_LOGIN_ON_GET = True
 SOCIALACCOUNT_AUTO_SIGNUP = True
 SOCIALACCOUNT_EMAIL_AUTHENTICATION = True
 SOCIALACCOUNT_EMAIL_VERIFICATION = "none"
+
+# Get API URLs from .env file
+ECOMMERCE_API_URL_REGISTER = env('ECOMMERCE_API_URL_REGISTER')
+ECOMMERCE_API_URL_LOGIN = env('ECOMMERCE_API_URL_LOGIN')
+ECOMMERCE_API_URL_UPDATE = env('ECOMMERCE_API_URL_UPDATE')
+ECOMMERCE_API_URL_PLACE_ORDER = env('ECOMMERCE_API_URL_PLACE_ORDER')
+ECOMMERCE_API_URL_ORDER_LIST = env('ECOMMERCE_API_URL_ORDER_LIST')

@@ -9,4 +9,7 @@ urlpatterns = [
     path('profile/', profile, name='profile'),
     path('profile/edit/', profile_edit, name='profile_edit'),
     path('profile/settings/', profile_settings, name='profile_settings'),
+#     path("update/", update_customer, name="update_customer"),
+#     path("place-order/", place_order, name="place_order"),
+#     path("orders/", list_orders, name="order_list"),
 ]
