@@ -114,21 +114,21 @@ TEMPLATES = [
 WSGI_APPLICATION = 'config.wsgi.application'
 
 # Local Database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'ecommerce_db',
-        'USER': 'postgres',
-        'PASSWORD': 'java',
-        'HOST': 'localhost',
-        'PORT': '5432',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'ecommerce_db',
+#         'USER': 'postgres',
+#         'PASSWORD': 'java',
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
 
 # Production Database
-# DATABASES = {
-#     'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
-# }
+DATABASES = {
+    'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+}
 
 
 # Password validation
