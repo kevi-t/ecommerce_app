@@ -12,7 +12,7 @@ __pycache__/
 # Django settings for local development
 .env
 *.sqlite3
-
+db.sqlite3
 
 # Logs and temporary files
 *.log
