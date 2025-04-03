@@ -7,6 +7,7 @@ env.read_env()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+CORE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
@@ -14,7 +15,12 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
 
-ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app','ecommerce-raaszwv1v-kevi-ts-projects.vercel.app']
+# ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app','ecommerce-raaszwv1v-kevi-ts-projects.vercel.app']
+# Development
+# ALLOWED_HOSTS = ['*']
+
+# Production
+ALLOWED_HOSTS = ['.vercel.app']
 
 # Application definition
 INSTALLED_APPS = [
@@ -26,6 +32,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     
     'app',
+    'whitenoise',
     
     # Allauth apps
     'allauth',
@@ -149,14 +156,20 @@ USE_TZ = True
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = "/static/"
-STATICFILES_DIRS = [ BASE_DIR / "public/static" ]
-STATIC_ROOT = BASE_DIR / "staticfiles"
+STATIC_URL = '/static/'
+STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]
+
+MEDIA_URL = '/images/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
+
+# STATIC_URL = "/static/"
+# STATICFILES_DIRS = [ BASE_DIR / "public/static" ]
+# STATIC_ROOT = BASE_DIR / "staticfiles"
 
 
-# Media files (for user-uploaded content)
-MEDIA_URL = 'media/'
-MEDIA_ROOT = BASE_DIR / 'media'
+# # Media files (for user-uploaded content)
+# MEDIA_URL = 'media/'
+# MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
