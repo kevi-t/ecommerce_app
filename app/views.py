@@ -5,7 +5,8 @@ from django.http import JsonResponse
 from django.conf import settings
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-
+from django.contrib.auth import authenticate, login
+import json
 
 
 def index(request):
@@ -136,29 +137,24 @@ def register(request):
 
 
 
-
-# ✅ Login View that calls the API
+# Updated login view
 def login_view(request):
     if request.method == "POST":
-        data = {
-            "email": request.POST.get("email"),
-            "password": request.POST.get("password"),
-        }
-
         try:
-            response = requests.post(settings.ECOMMERCE_API_URL_LOGIN, json=data)  # Ensure data is sent as JSON
+            data = json.loads(request.body)  # Parse the incoming JSON data
+            email = data.get("email")
+            password = data.get("password")
+        except json.JSONDecodeError:
+            return JsonResponse({"error": "Invalid JSON"}, status=400)
 
-            if response.status_code == 200:
-                response_data = response.json()
-                request.session["access_token"] = response_data.get("access")
-                request.session["refresh_token"] = response_data.get("refresh")
-                return redirect("home")
-            else:
-                return JsonResponse({"error": "Login failed. Please try again."})
-        except requests.exceptions.RequestException as e:
-            return JsonResponse({"error": f"An error occurred: {e}"})
+        user = authenticate(request, username=email, password=password)
+        if user:
+            login(request, user)
+            return JsonResponse({"access": "fake-access-token", "refresh": "fake-refresh-token"})
+        else:
+            return JsonResponse({"error": "Invalid credentials"}, status=401)
 
-    return redirect("login_page")  # Redirect to the login page if not a POST request
+    return JsonResponse({"error": "Invalid request method"}, status=405)
 
 # ✅ Separate function just for rendering the login page
 def login_page(request):

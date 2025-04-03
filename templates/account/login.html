@@ -17,7 +17,7 @@
                 <input type="email" name="email" class="form-control" required>
 
                 <label for="password">Password</label>
-                <input type="password" name="password" class="form-control" required>
+                <input type="password" name="password" class="form-control" required><br>
 
                 <input type="hidden" name="next" value="{% url 'home' %}">
 
@@ -42,38 +42,43 @@
 
     <script>
         document.getElementById("loginForm").onsubmit = function(event) {
-            event.preventDefault(); // Prevent default form submission
-
-            let form = event.target;
-            let formData = new FormData(form);
+            event.preventDefault(); 
+        
+            let email = document.getElementsByName("login")[0].value;
+            let password = document.getElementsByName("password")[0].value;
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
-            let nextUrl = document.getElementsByName("next")[0].value || "/";
-
+        
             fetch("{% url 'login_view' %}", {
                 method: "POST",
                 headers: {
+                    "Content-Type": "application/json",
                     "X-CSRFToken": csrfToken
                 },
-                body: formData
+                body: JSON.stringify({ email: email, password: password })
             })
-            .then(response => response.json())
+            .then(response => response.text())  // Fetch as text first
+            .then(text => {
+                try {
+                    return JSON.parse(text);  // Parse JSON, if possible
+                } catch (error) {
+                    throw new Error("Server returned non-JSON response: " + text);  // Handle non-JSON
+                }
+            })
             .then(data => {
                 if (data.access && data.refresh) {
-                    // Store tokens
                     localStorage.setItem('access_token', data.access);
                     localStorage.setItem('refresh_token', data.refresh);
-
-                    // Redirect
-                    window.location.href = nextUrl;
+                    window.location.href = '/';
                 } else {
-                    alert("Invalid login credentials, please try again.");
+                    alert(data.error || "Invalid login credentials.");
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
-                alert("An error occurred while trying to log in.");
+                console.error('Fetch Error:', error);
+                alert(error.message);
             });
-        }
+        };
+        
     </script>
 
 {% endblock %}
