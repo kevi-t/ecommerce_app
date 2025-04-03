@@ -1,17 +1,23 @@
 #!/bin/bash
 
-# Install pip (if missing)
+# Exit immediately if any command fails
+set -e
+
 echo "Ensuring pip is installed..."
 python3.9 -m ensurepip --default-pip
 python3.9 -m pip install --upgrade pip
 
-# Build the project
+# Install dependencies
 echo "Installing dependencies..."
 python3.9 -m pip install -r requirements.txt
 
-echo "Make Migration..."
+# Run migrations
+echo "Applying database migrations..."
 python3.9 manage.py makemigrations --noinput
 python3.9 manage.py migrate --noinput
 
-echo "Collect Static..."
+# Collect static files
+echo "Collecting static files..."
 python3.9 manage.py collectstatic --noinput --clear
+
+echo "Build process completed successfully!"

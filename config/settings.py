@@ -13,13 +13,10 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env.bool("DJANGO_DEBUG", default=True)
-# DEBUG = False
 
 ALLOWED_HOSTS = ['ecommerce-app-eight-rouge.vercel.app','ecommerce-raaszwv1v-kevi-ts-projects.vercel.app']
 
-
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -113,6 +110,9 @@ WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
+DATABASES = {
+    'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
+}
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.sqlite3',
@@ -120,11 +120,6 @@ WSGI_APPLICATION = 'config.wsgi.application'
 #     }
 # } 
 
-# DATABASES['default'] = dj_database_url.config()
-
-DATABASES = {
-    'default': dj_database_url.config(default=env('DATABASE_URL'), conn_max_age=600, ssl_require=True)
-}
 
 # Password validation
 AUTH_PASSWORD_VALIDATORS = [
@@ -155,12 +150,8 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / "staticfiles_build" / "static"
+STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_DIRS = [ BASE_DIR / 'static' ]
-
-# STATICFILES_DIRS = [ BASE_DIR / 'static' ]
-# STATIC_ROOT = BASE_DIR / "staticfiles" 
-# STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 # Media files (for user-uploaded content)
 MEDIA_URL = 'media/'
@@ -170,8 +161,8 @@ MEDIA_ROOT = BASE_DIR / "media"
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # LOGIN_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/home/'  # Redirect after login
-ACCOUNT_LOGOUT_REDIRECT_URL = '/'  # Redirect after logout
+LOGIN_REDIRECT_URL = '/home/'  
+ACCOUNT_LOGOUT_REDIRECT_URL = '/'  
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_EMAIL_REQUIRED = True
 ACCOUNT_UNIQUE_EMAIL = True
