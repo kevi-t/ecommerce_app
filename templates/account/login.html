@@ -11,7 +11,7 @@
 
     <div class="row">
         <div class="col-md-12">
-            <form method="POST">
+            <form id="loginForm" method="POST">
                 {% csrf_token %}
                 {{ form.as_p }}
                 <input type="hidden" name="next" value="{% url 'home' %}">
@@ -44,7 +44,7 @@
     
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
     
-            fetch("{% url 'login' %}", {  // Update this URL to the name of your login URL
+            fetch("{% url 'account_login' %}", {  // Update this URL to the name of your login URL
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",

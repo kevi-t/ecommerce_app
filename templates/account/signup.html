@@ -6,7 +6,7 @@
 {% block content %}
     <h2 class="text-center">Register</h2>
     <p class="text-center">
-        Already have an account? <a href="{% url 'login' %}">Sign in</a>
+        Already have an account? <a href="{% url 'account_signup' %}">Sign in</a>
     </p>
 
     <div class="row">
@@ -60,7 +60,7 @@
             let nextUrl = document.getElementsByName("next")[0].value; // Redirect after successful registration
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
 
-            fetch("{% url 'register' %}", {  // Update this to your register URL
+            fetch("{% url 'account_signup' %}", {  
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -76,7 +76,7 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    window.location.href = nextUrl || '{% url "login" %}';  // Redirect to login page
+                    window.location.href = nextUrl || '{% url "account_login" %}';  
                 } else {
                     alert("Registration failed, please try again.");
                 }
