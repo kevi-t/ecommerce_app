@@ -13,7 +13,7 @@ A Django-based demo frontend web application designed to showcase key features o
 • [Africa Talk SMS gateway](https://account.africastalking.com/apps/sandbox) <br>
 
 ## Setup Instructions
-1. Clone the Repository:  git clone https://github.com/kevi-t/Ecommerce_API 
+1. Clone the Repository:  git clone https://github.com/kevi-t/ecommerce_app
 2. Set Up Virtual Environment: python -m venv venv
 3. To activate the environment: source venv/bin/activate & On Windows use `venv\Scripts\activate`
 4. Install Dependencies: pip install -r requirements.txt
