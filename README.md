@@ -13,14 +13,32 @@ A Django-based demo frontend web application designed to showcase key features o
 • [Africa Talk SMS gateway](https://account.africastalking.com/apps/sandbox) <br>
 
 ## Setup Instructions
-1. Clone the Repository:  git clone https://github.com/kevi-t/ecommerce_app
-2. Set Up Virtual Environment: python -m venv venv
-3. To activate the environment: source venv/bin/activate & On Windows use `venv\Scripts\activate`
-4. Install Dependencies: pip install -r requirements.txt
+1. Clone the Repository:                                                                                                                                                          
+    ```bash
+        $ git clone https://github.com/kevi-t/ecommerce_app 
+    ```
+2. Set Up Virtual Environment:                                                                                                                                                                                  
+    ```bash
+        $ python -m venv venv 
+    ```
+3. To activate the environment: source venv/bin/activate & On Windows use                                                                                                                                        
+    ```bash
+        $ venv\Scripts\activate
+    ```
+4. Install Dependencies:                                                                                                                                                                             
+    ```bash
+        $ pip install -r requirements.txt
+    ```
 5. Configure local settings add your secret keys for the Google account,Django secret and Africa Talk Sms gate way
 6. Configure Environment Variables: Create a .env file in the root directory and add necessary environment variables; Google,AfricaTalking SECRET_KEY,DATABASE_URL
-8. Run Migrations:  python manage.py migrate
-9. Run the Development Server:  python manage.py runserver
+8. Run Migrations:                                                                                                                                                                                              
+    ```bash
+        $ python manage.py migrate
+    ```
+9. Run the Development Server:                                                                                                                                                                            
+    ```bash
+        $ python manage.py runserver
+    ```
 
 ### Key Features in This `README.md`:
 1. **Project Structure**: Clearly outlined, showing how the project is divided into modules.
