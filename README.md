@@ -4,13 +4,16 @@ A Django-based demo frontend web application designed to showcase key features o
 ## Project Structure
 ![alt text](project_structure.png)
 
+## Technologies used
+* [Django](https://www.djangoproject.com/): A Python web framework
+* [DRF](www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs
 
-## Prerequisites
-• Python 3.x<br>
-• Pip<br>
-• PostgreSQL or any compatible database<br>
-• [Google Account](https://console.cloud.google.com/getting-started)  <br>
-• [Africa Talk SMS gateway](https://account.africastalking.com/apps/sandbox) <br>
+## Prequisites
+* [Python 3.x](https://www.python.org/downloads/)
+* [Pip](https://pip.pypa.io/en/stable/installation/)
+* [PostgreSQL](https://www.postgresql.org/download/)or any compatible database
+* [Google Account](https://console.cloud.google.com/getting-started)  
+* [Africa Talk SMS gateway](https://account.africastalking.com/apps/sandbox) 
 
 ## Setup Instructions
 1. Clone the Repository:                                                                                                                                                          
@@ -54,3 +57,6 @@ Signup Page
 ![alt text](image-2.png)
 ### Process flow Diagram
 ![ecommerce_app process flow diagram](https://github.com/user-attachments/assets/c11cec5c-5576-46d5-b984-7acebf55fb81)
+
+### Resources
+* [Django docs](https://docs.djangoproject.com/): Django documentation 
