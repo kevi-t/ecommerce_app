@@ -2,7 +2,7 @@
 A Django-based demo frontend web application designed to showcase key features of an eCommerce system. It interacts with a backend eCommerce API to demonstrate core functionalities such as customer management, order processing, and user authentication using OAuth2. The app follows a modular structure to simulate integration with multiple service endpoints and highlight scalability potential in a real-world setup.
 
 ## Project Structure
-![alt text](image-3.png)
+![alt text](project_structure.png)
 
 
 ## Prerequisites
