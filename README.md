@@ -8,7 +8,7 @@ A Django-based demo frontend web application designed to showcase key features o
 * [Django](https://www.djangoproject.com/): A Python web framework
 * [DRF](www.django-rest-framework.org/): A powerful and flexible toolkit for building Web APIs
 
-## Prequisites
+## Prerequisites
 * [Python 3.x](https://www.python.org/downloads/)
 * [Pip](https://pip.pypa.io/en/stable/installation/)
 * [PostgreSQL](https://www.postgresql.org/download/)or any compatible database
