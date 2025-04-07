@@ -1,12 +1,14 @@
+# config/urls.py
 from django.contrib import admin
 from django.conf import settings
 from django.conf.urls.static import static
 from django.urls import path,include
 
+
 urlpatterns = [
     # path('admin/', admin.site.urls),
-    path('accounts/', include('allauth.urls')),
     path('', include('app.urls')),
+    path('accounts/', include('allauth.urls')),
 ]
 
 # Only used when DEBUG=True, whitenoise can serve files when DEBUG=False

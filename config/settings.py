@@ -18,7 +18,7 @@ DEBUG = True
 # ALLOWED_HOSTS = ['*']
 
 # Production
-ALLOWED_HOSTS = ['.vercel.app']
+ALLOWED_HOSTS = ['.vercel.app','localhost']
 
 # Application definition
 INSTALLED_APPS = [
@@ -106,6 +106,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                
+                'app.context_processors.session_auth_status',
             ],
         },
     },
@@ -160,25 +162,17 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [ os.path.join(BASE_DIR, 'static') ]
+STATICFILES_DIRS = [BASE_DIR / 'static' ]
 
-MEDIA_URL = '/images/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'static/images')
-
-# STATIC_URL = "/static/"
-# STATICFILES_DIRS = [ BASE_DIR / "public/static" ]
-# STATIC_ROOT = BASE_DIR / "staticfiles"
-
-
-# # Media files (for user-uploaded content)
-# MEDIA_URL = 'media/'
-# MEDIA_ROOT = BASE_DIR / 'media'
+# Media files (for user-uploaded content)
+MEDIA_URL = 'media/'
+MEDIA_ROOT = BASE_DIR / 'media'
 
 # Default primary key field type
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# LOGIN_REDIRECT_URL = '/'
-LOGIN_REDIRECT_URL = '/home/'  
+# Allauth Configurations
+LOGIN_REDIRECT_URL = '/'  
 ACCOUNT_LOGOUT_REDIRECT_URL = '/'  
 ACCOUNT_LOGIN_METHODS = {'email'}
 ACCOUNT_EMAIL_REQUIRED = True
@@ -195,3 +189,6 @@ ECOMMERCE_API_URL_LOGIN = env('ECOMMERCE_API_URL_LOGIN')
 ECOMMERCE_API_URL_UPDATE = env('ECOMMERCE_API_URL_UPDATE')
 ECOMMERCE_API_URL_PLACE_ORDER = env('ECOMMERCE_API_URL_PLACE_ORDER')
 ECOMMERCE_API_URL_ORDER_LIST = env('ECOMMERCE_API_URL_ORDER_LIST')
+ECOMMERCE_API_URL_OIDC = env('ECOMMERCE_API_URL_OIDC')
+
+SECRET_KEY= env('SECRET_KEY')

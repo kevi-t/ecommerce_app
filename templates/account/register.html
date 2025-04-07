@@ -5,13 +5,11 @@
 
 {% block content %}
     <h2 class="text-center">Register</h2>
-    <p class="text-center">
-        Already have an account? <a href="{% url 'account_signup' %}">Sign in</a>
-    </p>
+    <p class="text-center">Already have an account? <a href="{% url 'login_view' %}">Sign in</a></p>
 
     <div class="row">
-        <div class="col-md-12">
-            <form id="registerForm" method="POST">
+        <div class="col-md-12">          
+            <form id="registerForm" method="POST" action="{% url 'register_view' %}">
                 {% csrf_token %}
                 <div class="form-group">
                     <label for="name">Full Name</label>
@@ -29,7 +27,7 @@
                     <label for="password">Password</label>
                     <input type="password" name="password" class="form-control" required>
                 </div>
-                <input type="hidden" name="next" value="{% url 'home' %}">
+                <input type="hidden" name="next" value="{{ request.GET.next|default:'login/' }}">
                 <button type="submit" class="btn btn-primary btn-block">Register</button>
             </form>
 
@@ -42,25 +40,31 @@
                     <i class="fa-brands fa-google"></i> Sign in with Google
                 </a>
 
-                <a class="btn btn-dark btn-block" href="{% provider_login_url 'github' %}">
+                <a class="btn btn-dark btn-block" href="#">
                     <i class="fa-brands fa-github"></i> Sign in with GitHub
                 </a>
-            </div>
+            </div> 
         </div>
     </div>
 
     <script>
+
+        const clearErrors = () => {
+            document.querySelectorAll(".text-danger").forEach(e => e.remove());
+        };
+
         document.getElementById("registerForm").onsubmit = function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault();
+            clearErrors();
 
             let name = document.getElementsByName("name")[0].value;
             let email = document.getElementsByName("email")[0].value;
             let phone_number = document.getElementsByName("phone_number")[0].value;
             let password = document.getElementsByName("password")[0].value;
-            let nextUrl = document.getElementsByName("next")[0].value; // Redirect after successful registration
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+            let next = document.getElementsByName("next")[0].value; 
 
-            fetch("{% url 'account_signup' %}", {  
+            fetch("{% url 'register_view' %}", {  
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -70,15 +74,40 @@
                     name: name,
                     email: email,
                     phone_number: phone_number,
-                    password: password
+                    password: password,
+                    next: next
                 })
             })
             .then(response => response.json())
             .then(data => {
-                if (data.success) {
-                    window.location.href = nextUrl || '{% url "account_login" %}';  
-                } else {
-                    alert("Registration failed, please try again.");
+                if (data.message && data.next) {
+                    alert(data.message);
+
+                    let nextUrl = data.next || '/';
+                    
+                    if (!nextUrl.startsWith('http') && !nextUrl.startsWith('/')) {
+                        nextUrl = '/' + nextUrl; 
+                      }
+                    window.location.href = nextUrl;
+                }
+                else if (data.email || data.phone_number) {
+                    if (data.email && data.email.length > 0) {
+                        const emailInput = document.getElementsByName("email")[0];
+                        const errorDiv = document.createElement("div");
+                        errorDiv.className = "text-danger";
+                        errorDiv.innerText = data.email[0] || "Invalid email.";
+                        emailInput.parentNode.appendChild(errorDiv);
+                    }
+                    if (data.phone_number && data.phone_number.length > 0) {
+                        const phoneInput = document.getElementsByName("phone_number")[0];
+                        const errorDiv = document.createElement("div");
+                        errorDiv.className = "text-danger";
+                        errorDiv.innerText = data.phone_number[0] || "Invalid phone number.";
+                        phoneInput.parentNode.appendChild(errorDiv);
+                    }
+                }
+                else {
+                    alert(data.error || "Registration failed, please try again.");
                 }
             })
             .catch(error => {
@@ -87,4 +116,5 @@
             });
         };
     </script>
+
 {% endblock %}

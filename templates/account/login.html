@@ -2,11 +2,10 @@
 {% load socialaccount %}
 
 {% block title %}Login - E-Commerce{% endblock %}
-
 {% block content %}
     <h2 class="text-center">Login</h2>
     <p class="text-center">
-        Created an account to access products? <a href="{% url 'account_signup' %}">Register</a>
+        Created an account to access products? <a href="{% url 'register_view' %}">Register</a>
     </p>
 
     <div class="row">
@@ -19,7 +18,7 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" required><br>
 
-                <input type="hidden" name="next" value="{% url 'home' %}">
+                <input type="hidden" name="next" value="{{ request.GET.next|default:'/' }}">
 
                 <button type="submit" class="btn btn-primary btn-block">Login</button>
             </form>
@@ -33,10 +32,10 @@
                     <i class="fa-brands fa-google"></i> Sign in with Google
                 </a>
 
-                <a class="btn btn-dark btn-block" href="{% provider_login_url 'github' %}">
+                <a class="btn btn-dark btn-block" href="#">
                     <i class="fa-brands fa-github"></i> Sign in with GitHub
                 </a>
-            </div>
+            </div> 
         </div>
     </div>
 
@@ -46,33 +45,34 @@
         
             let email = document.getElementsByName("email")[0].value;
             let password = document.getElementsByName("password")[0].value;
+            let next = document.getElementsByName("next")[0].value;
             let csrfToken = document.getElementsByName("csrfmiddlewaretoken")[0].value;
+
         
             fetch("{% url 'login_view' %}", {
                 method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                    "X-CSRFToken": csrfToken
-                },
-                body: JSON.stringify({ email: email, password: password })
+                headers: {"Content-Type": "application/json", "X-CSRFToken": csrfToken},
+                body: JSON.stringify({ email: email, password: password, next: next })
             })
-            .then(response => response.text())  // Fetch as text first
-            .then(text => {
-                try {
-                    return JSON.parse(text);  // Parse JSON, if possible
-                } catch (error) {
-                    throw new Error("Server returned non-JSON response: " + text);  // Handle non-JSON
-                }
-            })
-            .then(data => {
+            .then(response => response.json())
+            .then(data => { 
                 if (data.access && data.refresh) {
                     localStorage.setItem('access_token', data.access);
                     localStorage.setItem('refresh_token', data.refresh);
-                    window.location.href = '/';
-                } else {
+                    
+                    // Ensure the next URL is a relative path or absolute path
+                    let nextUrl = data.next || '/';
+                    // If it's a relative path, we add the base URL (if needed)
+                    if (!nextUrl.startsWith('http') && !nextUrl.startsWith('/')) {
+                      nextUrl = '/' + nextUrl; // Ensure it's a valid path
+                    }
+                    window.location.href = nextUrl; 
+                } 
+                else {
                     alert(data.error || "Invalid login credentials.");
                 }
             })
+
             .catch(error => {
                 console.error('Fetch Error:', error);
                 alert(error.message);
