@@ -1,0 +1,39 @@
+<div class="container" style="max-width:960px; margin:30px auto; padding:0 20px;">
+  <h2><i class="fa fa-bolt"></i> TechMart Electronics</h2>
+  <p class="text-muted">Kenya's trusted online store for laptops, phones, tablets and more.</p>
+
+  <hr>
+
+  <p><strong>Why shop with us?</strong></p>
+  <ul class="list-unstyled text-left" style="display:inline-block;">
+    <li><i class="fa fa-check text-success"></i> Genuine products &amp; manufacturer warranty</li>
+    <li><i class="fa fa-check text-success"></i> Fast delivery across Kenya</li>
+    <li><i class="fa fa-check text-success"></i> Secure payments via M-Pesa &amp; card</li>
+    <li><i class="fa fa-check text-success"></i> 7-day returns policy</li>
+  </ul>
+
+  <hr>
+
+  <p class="text-muted" style="font-size:13px;">Browse by category</p>
+  <div class="row">
+    @for (cat of categories; track cat.label) {
+      <div class="col-sm-4" style="margin-bottom:12px;">
+        <div style="border:1px solid #ddd; border-radius:6px; padding:12px;">
+          <i [class]="cat.icon" style="font-size:22px; color:#0073e6;"></i>
+          <strong style="margin-left:8px;">{{ cat.label }}</strong>
+          <p class="text-muted" style="font-size:12px; margin:4px 0 8px;">{{ cat.desc }}</p>
+          <a routerLink="/products" class="btn btn-primary btn-xs">Shop now</a>
+        </div>
+      </div>
+    }
+  </div>
+
+  <hr>
+
+  @if (!auth.isLoggedIn()) {
+    <p class="text-muted">Create a free account to start shopping.</p>
+    <a routerLink="/register" class="btn btn-primary">Get Started</a>
+  } @else {
+    <a routerLink="/products" class="btn btn-primary">Browse Products</a>
+  }
+</div>

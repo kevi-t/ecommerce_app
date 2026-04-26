@@ -1,0 +1,60 @@
+<div class="auth-card">
+  <h2>Create Account</h2>
+  <p class="auth-subtitle text-muted">Already have an account? <a routerLink="/login">Sign in</a></p>
+
+  @if (successMessage) {
+    <div class="alert alert-success">{{ successMessage }}</div>
+  }
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="name">Full Name *</label>
+      <input id="name" type="text" [(ngModel)]="name" name="name"
+             class="form-control" placeholder="John Doe" required>
+      @if (fieldErrors['name']) {
+        <small class="text-danger">{{ fieldErrors['name'] }}</small>
+      }
+    </div>
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input id="email" type="email" [(ngModel)]="email" name="email"
+             class="form-control" placeholder="you@example.com" required>
+      @if (fieldErrors['email']) {
+        <small class="text-danger">{{ fieldErrors['email'] }}</small>
+      }
+    </div>
+    <div class="form-group">
+      <label for="phone_number">Phone Number *</label>
+      <input id="phone_number" type="tel" [(ngModel)]="phone_number" name="phone_number"
+             class="form-control" placeholder="0712 345 678" required>
+      @if (fieldErrors['phone_number']) {
+        <small class="text-danger">{{ fieldErrors['phone_number'] }}</small>
+      }
+    </div>
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input id="password" type="password" [(ngModel)]="password" name="password"
+             class="form-control" placeholder="Minimum 8 characters" required>
+      @if (fieldErrors['password']) {
+        <small class="text-danger">{{ fieldErrors['password'] }}</small>
+      }
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="loading">
+      @if (loading) { <span class="glyphicon glyphicon-refresh"></span> }
+      Create Account
+    </button>
+  </form>
+
+  <hr style="margin: 20px 0;">
+
+  <a class="btn btn-danger btn-block" href="/api/ecommerce/customer/oidc-login/">
+    <i class="fa-brands fa-google"></i> Sign up with Google
+  </a>
+  <a class="btn btn-default btn-block" href="#" style="margin-top:8px;">
+    <i class="fa-brands fa-github"></i> Sign up with GitHub
+  </a>
+</div>

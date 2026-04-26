@@ -1,0 +1,39 @@
+<div class="auth-card">
+  <h2>Login</h2>
+  <p class="auth-subtitle text-muted">Welcome back. Sign in to continue.</p>
+
+  @if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  }
+
+  <form (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label for="email">Email *</label>
+      <input id="email" type="email" [(ngModel)]="email" name="email"
+             class="form-control" placeholder="you@example.com" required>
+    </div>
+    <div class="form-group">
+      <label for="password">Password *</label>
+      <input id="password" type="password" [(ngModel)]="password" name="password"
+             class="form-control" placeholder="••••••••" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary btn-block" [disabled]="loading">
+      @if (loading) { <span class="glyphicon glyphicon-refresh"></span> }
+      Log In
+    </button>
+  </form>
+
+  <hr style="margin: 20px 0;">
+
+  <a class="btn btn-danger btn-block" href="/api/ecommerce/customer/oidc-login/">
+    <i class="fa-brands fa-google"></i> Sign in with Google
+  </a>
+  <a class="btn btn-default btn-block" href="#" style="margin-top:8px;">
+    <i class="fa-brands fa-github"></i> Sign in with GitHub
+  </a>
+
+  <p class="text-center" style="margin-top: 20px; font-size: 13px;">
+    New here? <a routerLink="/register">Create account</a>
+  </p>
+</div>

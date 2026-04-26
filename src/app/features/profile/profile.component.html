@@ -1,0 +1,32 @@
+<div class="container" style="max-width:600px; margin:30px auto; padding:0 20px;">
+  <h2 class="text-center">My Profile</h2>
+
+  @if (loading) {
+    <div class="text-center" style="padding:20px;"><span class="glyphicon glyphicon-refresh"></span> Loading...</div>
+  } @else if (errorMessage) {
+    <div class="alert alert-danger">{{ errorMessage }}</div>
+  } @else if (profile) {
+    <table class="table table-bordered">
+      <tbody>
+        <tr>
+          <th>Email</th>
+          <td>{{ auth.userEmail() }}</td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td>{{ profile.name }}</td>
+        </tr>
+        <tr>
+          <th>Phone</th>
+          <td>{{ profile.phone_number }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <a routerLink="/profile/edit" class="btn btn-primary">
+      <span class="glyphicon glyphicon-edit"></span> Edit Profile
+    </a>
+    <a routerLink="/profile/settings" class="btn btn-default" style="margin-left:8px;">
+      <span class="glyphicon glyphicon-cog"></span> Settings
+    </a>
+  }
+</div>

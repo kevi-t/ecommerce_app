@@ -1,0 +1,43 @@
+<div class="container" style="max-width:1060px; margin:30px auto; padding:0 20px;">
+  <h2 class="text-center">Products</h2>
+
+  <!-- Category filter tabs -->
+  <div style="margin-bottom:16px; overflow-x:auto; white-space:nowrap;">
+    @for (cat of categories; track cat) {
+      <button
+        class="btn btn-xs"
+        [class.btn-primary]="selectedCategory === cat"
+        [class.btn-default]="selectedCategory !== cat"
+        style="margin-right:6px; margin-bottom:6px;"
+        (click)="selectedCategory = cat">
+        {{ cat }}
+      </button>
+    }
+  </div>
+
+  <!-- Product grid -->
+  <div class="row" style="text-align:left;">
+    @for (product of filtered; track product.id) {
+      <div class="col-sm-4 col-xs-12" style="margin-bottom:16px;">
+        <div style="border:1px solid #ddd; border-radius:6px; padding:14px; height:100%;">
+          <div style="font-size:28px; color:#0073e6; margin-bottom:8px;">
+            <i [class]="product.icon"></i>
+          </div>
+          <strong>{{ product.name }}</strong>
+          <span class="label label-default" style="margin-left:6px; font-size:10px;">{{ product.category }}</span>
+          <p class="text-muted" style="font-size:12px; margin:6px 0;">{{ product.description }}</p>
+          <p style="font-size:15px; font-weight:bold; color:#333; margin-bottom:10px;">
+            KES {{ product.price | number }}
+          </p>
+          <button class="btn btn-primary btn-sm" (click)="orderNow(product)" style="padding:6px 14px;">
+            <i class="fa fa-shopping-cart"></i> Order Now
+          </button>
+        </div>
+      </div>
+    }
+  </div>
+
+  @if (filtered.length === 0) {
+    <div class="alert alert-info">No products in this category yet.</div>
+  }
+</div>

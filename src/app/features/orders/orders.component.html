@@ -1,0 +1,88 @@
+<div class="container" style="max-width:720px; margin:30px auto; padding:0 20px;">
+  <h2 class="text-center">Checkout &amp; Orders</h2>
+
+  <!-- Checkout form -->
+  <div class="panel panel-primary">
+    <div class="panel-heading">
+      <strong><i class="fa fa-shopping-cart"></i> Place an Order</strong>
+    </div>
+    <div class="panel-body">
+      @if (successMessage) {
+        <div class="alert alert-success">
+          <i class="fa fa-check"></i> {{ successMessage }}
+        </div>
+      }
+      @if (errorMessage) {
+        <div class="alert alert-danger">{{ errorMessage }}</div>
+      }
+
+      <form (ngSubmit)="placeOrder()">
+        <div class="form-group">
+          <label>Item / Product Name</label>
+          <input type="text" class="form-control" [(ngModel)]="newItem" name="item"
+                 placeholder="e.g. Dell XPS 15 Laptop" required>
+          @if (formErrors['item']) {
+            <small class="text-danger">{{ formErrors['item'] }}</small>
+          }
+        </div>
+        <div class="form-group">
+          <label>Amount (KES)</label>
+          <input type="number" class="form-control" [(ngModel)]="newAmount" name="amount"
+                 placeholder="e.g. 85000" required min="1" step="0.01">
+          @if (formErrors['amount']) {
+            <small class="text-danger">{{ formErrors['amount'] }}</small>
+          }
+        </div>
+
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="placing">
+          @if (placing) { <span class="glyphicon glyphicon-refresh"></span> }
+          Confirm Order
+        </button>
+      </form>
+
+      <div style="margin-top:10px;">
+        <a routerLink="/products" class="btn btn-default btn-block" style="padding:8px;">
+          <i class="fa fa-arrow-left"></i> Back to Products
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Order history -->
+  <h4 style="margin-top:24px;">
+    <i class="fa fa-history"></i> Order History
+  </h4>
+
+  @if (loading) {
+    <div class="text-center" style="padding:20px;">
+      <span class="glyphicon glyphicon-refresh"></span> Loading...
+    </div>
+  } @else if (orders.length === 0) {
+    <div class="alert alert-info">
+      No orders yet. <a routerLink="/products">Browse products</a> to place your first order.
+    </div>
+  } @else {
+    <div class="table-responsive">
+      <table class="table table-striped table-hover table-condensed">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Item</th>
+            <th>Amount (KES)</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (order of orders; track order.id) {
+            <tr>
+              <td>{{ order.id }}</td>
+              <td>{{ order.item }}</td>
+              <td>{{ order.amount | number:'1.2-2' }}</td>
+              <td>{{ order.time | date:'d MMM y, h:mm a' }}</td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

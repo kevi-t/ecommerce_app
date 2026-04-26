@@ -1,0 +1,19 @@
+<div class="auth-card">
+  <h2 class="text-center">Account Settings</h2>
+
+  <table class="table table-bordered">
+    <tbody>
+      <tr>
+        <th>Email address</th>
+        <td>{{ auth.userEmail() }}</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <a routerLink="/profile/edit" class="btn btn-primary btn-block">
+    <span class="glyphicon glyphicon-edit"></span> Edit Name &amp; Phone
+  </a>
+  <button class="btn btn-danger btn-block" style="margin-top:8px;" (click)="logout()">
+    <span class="glyphicon glyphicon-log-out"></span> Logout
+  </button>
+</div>

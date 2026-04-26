@@ -1,34 +1,29 @@
-;;files to ignore
+# ── Angular / Node ──────────────────────────────────────────────────
+node_modules/
+dist/
+.angular/
+coverage/
 
-# Virtual environment
-venv/
-env/
-
-# Byte-compiled files
-__pycache__/
-*.pyc
-*.pyo
-
-# Django settings for local development
+# ── Environment / secrets ────────────────────────────────────────────
 .env
+.env.*
+!.env.example
 *.sqlite3
 db.sqlite3
 
-# Logs and temporary files
-*.log
-*.pot
-*.py[co]
+# ── OS / editor ──────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
 *.swp
 *.swo
-
-# Node modules (if using JavaScript in the project)
-node_modules/
-
-# VS Code settings (optional)
 .vscode/
-
-# PyCharm settings (optional)
 .idea/
 
-# MacOS system files
-.DS_Store
+# ── Python (old Django code kept in old/) ───────────────────────────
+__pycache__/
+*.pyc
+*.pyo
+*.pot
+*.log
+venv/
+env/
