@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { Order, PlaceOrderRequest, PaginatedResponse } from '../models/order.model';
+import { Order, PlaceOrderRequest } from '../models/order.model';
 import { ApiResponse } from '../models/customer.model';
 
 @Injectable({ providedIn: 'root' })
@@ -15,6 +15,6 @@ export class OrderService {
   }
 
   listOrders() {
-    return this.http.get<PaginatedResponse<Order>>(this.baseUrl);
+    return this.http.get<Order[]>(this.baseUrl);
   }
 }
