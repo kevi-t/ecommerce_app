@@ -39,7 +39,7 @@ export class OrdersComponent implements OnInit {
   loadOrders(): void {
     this.loading = true;
     this.orderService.listOrders().subscribe({
-      next: res => { this.orders = res.results; this.loading = false; },
+      next: res => { this.orders = res; this.loading = false; },
       error: () => { this.errorMessage = 'Failed to load orders.'; this.loading = false; },
     });
   }
